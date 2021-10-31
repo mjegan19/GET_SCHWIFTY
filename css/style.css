@@ -1,6 +1,178 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
 
+body {
+  margin: 0;
+  padding: 0;
+  background: #333 !important;
+}
+
+header {
+  margin-top: 3rem;
+}
+
+header p {
+  color: #B2E737;
+  /* font-size:  */
+}
+
+#results {
+  background-color: transparent !important;
+}
 
 .trading-card {
   margin: 0.7rem;
   width: 300px;
+}
+
+/* Trading Card Styling */
+
+.flip-card {
+  background-color: transparent; 
+  width: 300px;
+  height: 450px;
+  perspective: 1000px;
+  border-radius: 25px;
+  transition: transform .1s;    /* Timing for hover effect */
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  border-radius: 25px;
+  /* box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); */
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+  cursor: pointer;
+}
+
+.flip-card-inner:hover {
+  transform: scale(1.03);
+  border-radius: 25px;
+}
+
+.flip-card-inner.is-flipped {
+  transform: rotateY(180deg);  
+}
+
+.flip-card-front {
+  background-color: #C7EE6D;
+  border-radius: 25px;
+}
+
+.flip-card-front, .flip-card-rear {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden; /* Safari */
+  backface-visibility: hidden;
+}
+
+.flip-card-front-header:first-child {
+  margin: 0.9rem 0 0;
+}
+
+.char-name-header {
+  margin: 0;
+  font-family: 'Fjalla One', sans-serif;
+  font-size: 1.3rem;
+  color: #0093A3;
+  text-shadow: 0 0 3px lightgoldenrodyellow;
+}
+
+.flip-card-front img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+  height: 310px;
+  object-fit: cover;
+  border: rgb(250, 250, 210) 1px solid;
+}
+
+.flip-card-front-footer {
+  width: 90%;
+  height: 53px;
+  margin-left: auto;
+  margin-right: auto;
+  background: lightgoldenrodyellow;
+}
+
+.flip-card-front-footer span {
+  font-family: 'Syne Mono', monospace;
+  font-size: 0.8rem;
+  color: #002626;
+}
+
+.flip-card-front-header,
+.flip-card-rear-footer,
+.flip-card-rear-stats span:first-child,
+.flip-card-front-bottom span {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.7rem;
+  color: #002626;
+}
+
+.flip-card-rear {
+  background-color: #C7EE6D;
+  border-radius: 25px;
+  color: #002626;
+  transform: rotateY(180deg);
+}
+
+.flip-card-rear-bg {
+  position: absolute;
+  width: 90%;
+  height: 93%;
+  margin: 15px;
+  background: lightgoldenrodyellow;
+  border-radius: 15px;
+}
+
+.flip-card-rear-bg img {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 15px;
+  opacity: 0.2;
+}
+
+.flip-card-rear-stats {
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 15px;
+  top: 0;
+  left: 15px;
+}
+
+.char-name-header-rear {
+  margin: 0;
+  font-family: 'Fjalla One', sans-serif;
+  font-size: 1.3rem;
+  color: #0093A3;
+  text-shadow: 0 0 10px #B2E737;
+}
+
+.stats-header {
+  margin: 0;
+  padding: 0 0.5rem;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.6rem;
+}
+
+.stats-data {
+  font-family: 'Fjalla One', sans-serif;
+  font-size: 1.2rem;
+  color: #002626;
+  text-shadow: 0 0 10px #B2E737;
+}
+
+.flip-card-rear-footer p {
+  margin-top: 20px;
 }
