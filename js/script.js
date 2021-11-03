@@ -1,13 +1,16 @@
 const searchCharacter = document.getElementById('searchCharacter');
 const searchButton = document.getElementById('searchButton');
 const resultsDiv = document.getElementById('results');
+
 const pageNav = document.getElementById('page-nav');
-const prevPage = document.getElementById('prev-page');
+
 const nextPage = document.getElementById('next-page');
-let info = null
-let character = ""
-let currentPage = 1
-var cards = null;
+const prevPage = document.getElementById('prev-page');
+let info = null;
+let character = "";
+let totalPages = null;
+let currentPage = 1;
+let cards = null;
 
 window.addEventListener("load", function () {
   character = localStorage.getItem('enquiry')
@@ -17,20 +20,36 @@ window.addEventListener("load", function () {
 searchButton.addEventListener('click', function () {
   character = searchCharacter.value;
   resultsDiv.innerHTML = "";
+  currentPage = 1;
+
+  if (totalPages > 1) {
+    pageNav.classList.toggle('visually-hidden');
+  }
+
   localStorage.setItem("enquiry", character)
   searchMultiverse(currentPage, character);
 });
 
 
 prevPage.addEventListener('click', function () {
-  currentPage--
-  searchMultiverse(currentPage, character);
-})
+  if (info.prev) {
+    console.log('next');
+    currentPage--
+    pageNav.classList.toggle('visually-hidden');
+    searchMultiverse(currentPage, character);    
+    window.scroll({
+      top: 0, 
+      left: 0, 
+      behavior: 'smooth' 
+    });
+  }
+});
 
 nextPage.addEventListener('click', function () {
   if (info.next) {
     console.log('next');
     currentPage++
+    pageNav.classList.toggle('visually-hidden');
     searchMultiverse(currentPage, character);
     window.scroll({
       top: 0, 
@@ -43,15 +62,28 @@ nextPage.addEventListener('click', function () {
 async function searchMultiverse(currentPage, enquiry) {
   const response = await fetch(`https://rickandmortyapi.com/api/character?page=${currentPage}&name=${enquiry}`);
   const json = await response.json();
-  console.log(json);
   displayResults(json);
-  info = json.info
-  const totalPages = json.info.pages;
-  if (!info.next) {
-    nextPage.disabled = true;
+  info = json.info;
+  totalPages = json.info.pages;
+  pageNav.classList.toggle('visually-hidden');
+
+  if (info.pages > 1) {
+    if (!info.next) {
+      nextPage.disabled = true;
+    } else {
+      nextPage.disabled = false;
+    }
+  
+    if (!info.prev) {
+      prevPage.disabled = true;
+    } else {
+      prevPage.disabled = false;
+    }
   } else {
-    nextPage.disabled = false;
+    pageNav.classList.toggle('visually-hidden');
   }
+
+
 }
 
 function displayResults(data) {

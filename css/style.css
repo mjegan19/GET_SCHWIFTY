@@ -6,7 +6,9 @@
 body {
   margin: 0;
   padding: 0;
-  background: #333 !important;
+  background: url('../img/3d-space-background-with-fictional-planets-nebula.jpg') fixed no-repeat center center/cover #333 !important;
+  height: 100vh;
+  
 }
 
 header {
@@ -16,6 +18,12 @@ header {
 header p {
   color: #B2E737;
   /* font-size:  */
+}
+
+.search-form {
+  width: 45%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 #results {
@@ -44,7 +52,7 @@ header p {
   height: 100%;
   text-align: center;
   border-radius: 25px;
-  /* box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); */
+  box-shadow: 0 4px 8px 0 rgba(250, 250, 210, 0.7);
   transition: transform 0.8s;
   transform-style: preserve-3d;
   cursor: pointer;
@@ -78,8 +86,9 @@ header p {
 
 .char-name-header {
   margin: 0;
+  padding-bottom: 10px;
   font-family: 'Fjalla One', sans-serif;
-  font-size: 1.3rem;
+  font-size: 0.9rem;
   color: #0093A3;
   text-shadow: 0 0 3px lightgoldenrodyellow;
 }
@@ -144,8 +153,7 @@ header p {
 
 .flip-card-rear-stats {
   position: absolute;
-  margin-left: auto;
-  margin-right: auto;
+  width: inherit;
   padding-top: 15px;
   top: 0;
   left: 15px;
@@ -154,7 +162,7 @@ header p {
 .char-name-header-rear {
   margin: 0;
   font-family: 'Fjalla One', sans-serif;
-  font-size: 1.3rem;
+  font-size: 0.8rem;
   color: #0093A3;
   text-shadow: 0 0 10px #B2E737;
 }
@@ -168,11 +176,17 @@ header p {
 
 .stats-data {
   font-family: 'Fjalla One', sans-serif;
-  font-size: 1.2rem;
+  font-size: 0.8rem;
   color: #002626;
   text-shadow: 0 0 10px #B2E737;
 }
 
 .flip-card-rear-footer p {
   margin-top: 20px;
+}
+
+
+/* Page Navigation Buttons */
+#page-nav {
+  margin: 1.4rem 0.7rem;
 }
