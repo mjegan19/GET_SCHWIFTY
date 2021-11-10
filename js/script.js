@@ -22,15 +22,14 @@ let character = "";
 let totalCharacters = null;
 let totalPages = null;
 let currentPage = 1;
-let cards = null;
 
 window.addEventListener("load", function () {
-  character = localStorage.getItem('charName')
+  character = localStorage.getItem('charName');
   searchCharacter.value = character;
 
   getTotalCharacters();
   searchMultiverse(currentPage, character, gender.value, species.value, lifeStatus.value);
-})
+});
 
 searchButton.addEventListener('click', function () {
   character = searchCharacter.value;
@@ -40,7 +39,7 @@ searchButton.addEventListener('click', function () {
     pageNav.classList.toggle('visually-hidden');
   }
 
-  localStorage.setItem("charName", character)
+  localStorage.setItem("charName", character);
   searchMultiverse(currentPage, character, gender.value, species.value, lifeStatus.value);
 });
 
@@ -68,7 +67,7 @@ lifeStatus.addEventListener('change', function () {
 prevPage.addEventListener('click', function () {
   if (info.prev) {
     console.log('next');
-    currentPage--
+    currentPage--;
     pageNav.classList.toggle('visually-hidden');
     searchMultiverse(currentPage, character, gender.value, species.value, lifeStatus.value);    
     window.scroll({
@@ -82,7 +81,7 @@ prevPage.addEventListener('click', function () {
 nextPage.addEventListener('click', function () {
   if (info.next) {
     console.log('next');
-    currentPage++
+    currentPage++;
     pageNav.classList.toggle('visually-hidden');
     searchMultiverse(currentPage, character, gender.value, species.value, lifeStatus.value);
     window.scroll({
@@ -122,7 +121,7 @@ async function searchMultiverse(currentPage, charName, genderType, speciesType, 
 
 function displayResults(data) {
   noResultsDiv.innerHTML = "";
-  resultsDiv.innerHTML = ""
+  resultsDiv.innerHTML = "";
 
   if (data.error) {
     let alertNone = document.createElement('div');
@@ -207,7 +206,6 @@ function displayResults(data) {
     }
   }  
 }
-
 
 async function getTotalCharacters() {
   const response = await fetch(`https://rickandmortyapi.com/api/character`);
