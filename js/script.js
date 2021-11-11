@@ -1,27 +1,32 @@
+// Find search input by ID & store query in variable
 const searchCharacter = document.getElementById('searchCharacter');
+// Find search button by ID, store in variable for 'eventlistner'
 const searchButton = document.getElementById('searchButton');
 
+// Find refine search button by ID in order to modify classList
 const refineResults = document.getElementById('refine-results');
+// Find select menus by IDs, store in variables for 'eventlistner' & values
 const gender = document.getElementById('gender');
 const species = document.getElementById('species');
 const lifeStatus = document.getElementById('status');
 
+// Find placeholder DIV by ID to return dynamic error alert
 const noResultsDiv = document.getElementById('no-results');
+// Find placeholder DIV by ID to return dynamic card results
 const resultsDiv = document.getElementById('results');
 
+// Find page navigation elements by ID and save to variables
 const pageNav = document.getElementById('page-nav');
-
 const nextPage = document.getElementById('next-page');
 const prevPage = document.getElementById('prev-page');
 
-
+// Define variables globally to access/modify in required functions
 let info = null;
-
 let character = "";
-
 let totalCharacters = null;
 let totalPages = null;
 let currentPage = 1;
+
 
 window.addEventListener("load", function () {
   character = localStorage.getItem('charName');
@@ -34,11 +39,6 @@ window.addEventListener("load", function () {
 searchButton.addEventListener('click', function () {
   character = searchCharacter.value;
   resetQueryString();
-
-  if (totalPages > 1) {
-    pageNav.classList.toggle('visually-hidden');
-  }
-
   localStorage.setItem("charName", character);
   searchMultiverse(currentPage, character, gender.value, species.value, lifeStatus.value);
 });
@@ -68,12 +68,11 @@ prevPage.addEventListener('click', function () {
   if (info.prev) {
     console.log('next');
     currentPage--;
-    pageNav.classList.toggle('visually-hidden');
-    searchMultiverse(currentPage, character, gender.value, species.value, lifeStatus.value);    
+    searchMultiverse(currentPage, character, gender.value, species.value, lifeStatus.value);
     window.scroll({
-      top: 0, 
-      left: 0, 
-      behavior: 'smooth' 
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
     });
   }
 });
@@ -82,12 +81,11 @@ nextPage.addEventListener('click', function () {
   if (info.next) {
     console.log('next');
     currentPage++;
-    pageNav.classList.toggle('visually-hidden');
     searchMultiverse(currentPage, character, gender.value, species.value, lifeStatus.value);
     window.scroll({
-      top: 0, 
-      left: 0, 
-      behavior: 'smooth' 
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
     });
   }
 });
@@ -97,25 +95,12 @@ async function searchMultiverse(currentPage, charName, genderType, speciesType, 
   const json = await response.json();
 
   displayResults(json);
-  info = json.info;
-  totalPages = json.info.pages;
-  console.log('Multiverse ' + totalPages);
-  pageNav.classList.toggle('visually-hidden');
-
-  if (info.pages > 1) {
-    if (!info.next) {
-      nextPage.disabled = true;
-    } else {
-      nextPage.disabled = false;
-    }
-  
-    if (!info.prev) {
-      prevPage.disabled = true;
-    } else {
-      prevPage.disabled = false;
-    }
+  if (json.error) {
+    displayPageNav(currentPage);
   } else {
-    pageNav.classList.toggle('visually-hidden');
+    info = json.info;
+    totalPages = json.info.pages;
+    displayPageNav(info.pages);
   }
 }
 
@@ -141,7 +126,7 @@ function displayResults(data) {
     `;
 
     noResultsDiv.append(alertNone);
-  
+
   } else {
 
     data.results.forEach(characterAvatar => {
@@ -199,18 +184,37 @@ function displayResults(data) {
 
     // Card flip click flip function - for loop creates array for all querySelectors' generated
     var cards = document.querySelectorAll('.flip-card-inner');
-    for(let i = 0; i < cards.length; i++){
-      cards[i].addEventListener('click', function() {
+    for (let i = 0; i < cards.length; i++) {
+      cards[i].addEventListener('click', function () {
         cards[i].classList.toggle('is-flipped');
       });
     }
-  }  
+  }
 }
 
 async function getTotalCharacters() {
   const response = await fetch(`https://rickandmortyapi.com/api/character`);
   const json = await response.json();
   totalCharacters = json.info.count;
+}
+
+function displayPageNav(pages) {
+  if (pages > 1) {
+    pageNav.style.display = "block";
+    if (!info.next) {
+      nextPage.disabled = true;
+    } else {
+      nextPage.disabled = false;
+    }
+
+    if (!info.prev) {
+      prevPage.disabled = true;
+    } else {
+      prevPage.disabled = false;
+    }
+  } else {
+    pageNav.style.display = "none";
+  }
 }
 
 function resetQueryString() {

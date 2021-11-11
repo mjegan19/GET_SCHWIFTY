@@ -1,18 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Syne+Mono&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@500&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@1,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
+
 
 body {
   margin: 0;
   padding: 0;
   background: url('../img/3d-space-background-min.jpg') fixed no-repeat center center/cover #333 !important;
   height: 100vh;
-  
 }
 
 header {
-  margin-top: 3rem;
+  position: relative;
+}
+
+header img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 320px;
+  opacity: 0.9;
+  z-index: 0; 
+}
+
+header h1 {
+  position: absolute;
+  font-family: 'Mochiy Pop One', sans-serif;
+  font-size: 4rem;
+  text-shadow: 0px 0px 5px #B2E737, 0px 0px 5px #B2E737;
+  top: 155px;
+  width: 100%;
+  text-align: center;
+  z-index: -1;
+}
+
+
+header h3 {
+  position: absolute;
+  font-family: 'Source Code Pro', monospace;
+  color: #C7EE6D;
+  text-shadow: 0px 0px 3px #B2E737, 0px 0px 3px #B2E737;
+  top: 135px;
+  width: 98%;
+  text-align: center;
+  z-index: 1;
 }
 
 header p {
@@ -21,7 +54,7 @@ header p {
 }
 
 .search-form {
-  width: 45%;
+  width: 620px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -191,3 +224,40 @@ header p {
   margin: 1.4rem 0.7rem;
 }
 
+
+/* Responsive screen sizing */
+@media screen and (max-width: 1000px) {
+  header img {
+    width: 250px;
+  }
+
+  header h1 {
+    font-size: 3rem;
+    top: 123px;
+  }
+  
+  header h3 {
+    font-size: 1.2rem;
+    top: 105px;
+  }
+}
+
+@media screen and (max-width: 780px) {
+  header img {
+    width: 200px;
+  }
+
+  header h1 {
+    font-size: 2rem;
+    top: 100px;
+  }
+
+  header h3 {
+    font-size: 1rem;
+    top: 85px;
+  }
+
+  .search-form {
+    width: 420px;
+  }
+}
