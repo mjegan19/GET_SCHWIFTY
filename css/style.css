@@ -4,6 +4,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@1,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
 
+/* Header & Page Styling */
 body {
   margin: 0;
   padding: 0;
@@ -69,13 +70,13 @@ header .site-info {
   background-color: transparent !important;
 }
 
+/* Trading Card Styling & Animation */
 .trading-card {
   margin: 0.7rem;
   width: 300px;
 }
 
-/* Trading Card Styling */
-
+/* Front Card Styling */
 .flip-card {
   background-color: transparent; 
   width: 300px;
@@ -165,6 +166,7 @@ header .site-info {
   color: #002626;
 }
 
+/* Rear Card Styling */
 .flip-card-rear {
   background-color: #C7EE6D;
   border-radius: 25px;
@@ -230,6 +232,7 @@ header .site-info {
   margin: 1.4rem 0.7rem;
 }
 
+/* Footer Styling */
 footer {
   margin-top: 4rem;
   padding: 0.5rem 0;
@@ -246,6 +249,7 @@ footer a {
 }
 
 footer a:hover {
+  color: #FF00FF;
   opacity: 0.9;
 }
 
