@@ -10,6 +10,9 @@ const gender = document.getElementById('gender');
 const species = document.getElementById('species');
 const lifeStatus = document.getElementById('status');
 
+// Find reset button by ID in order to clear variables & reload page
+const resetButton = document.getElementById('reset-btn');
+
 // Find placeholder DIV by ID to return dynamic error alert
 const noResultsDiv = document.getElementById('no-results');
 // Find placeholder DIV by ID to return dynamic card results
@@ -27,19 +30,21 @@ let totalCharacters = null;
 let totalPages = null;
 let currentPage = 1;
 
-
+// Listen for page load, retrieve last user search from storage.
 window.addEventListener("load", function () {
   character = localStorage.getItem('charName');
   searchCharacter.value = character;
-
+  
+  // Obtain total # characters, load all card results from API
   getTotalCharacters();
   searchMultiverse(currentPage, character, gender.value, species.value, lifeStatus.value);
 });
 
+// Listen for search button click & call function to connect to API
 searchButton.addEventListener('click', function () {
-  character = searchCharacter.value;
+  character = searchCharacter.value;  
   resetQueryString();
-  localStorage.setItem("charName", character);
+  localStorage.setItem("charName", character);  // Store user query for next session
   searchMultiverse(currentPage, character, gender.value, species.value, lifeStatus.value);
 });
 
@@ -47,14 +52,12 @@ searchButton.addEventListener('click', function () {
 gender.addEventListener('change', function () {
   currentPage = 1;
   searchMultiverse(currentPage, character, gender.value, species.value, lifeStatus.value);
-
 });
 
 // Event listener to refine species of character query when changed
 species.addEventListener('change', function () {
   currentPage = 1;
   searchMultiverse(currentPage, character, gender.value, species.value, lifeStatus.value);
-
 });
 
 // Event listener to refine life status of character query when changed
@@ -64,11 +67,18 @@ lifeStatus.addEventListener('change', function () {
 
 });
 
+// Event listener to reset search variables and reload site page
+resetButton.addEventListener('click', function () {
+  resetQueryString();
+  location.reload();
+});
+
+// Previous page button event listener - generate next page of results
 prevPage.addEventListener('click', function () {
   if (info.prev) {
-    console.log('next');
     currentPage--;
     searchMultiverse(currentPage, character, gender.value, species.value, lifeStatus.value);
+    // Smooth navigation transition to top of site
     window.scroll({
       top: 0,
       left: 0,
@@ -77,11 +87,12 @@ prevPage.addEventListener('click', function () {
   }
 });
 
+// Next page button event listener - generate next page of results
 nextPage.addEventListener('click', function () {
   if (info.next) {
-    console.log('next');
     currentPage++;
     searchMultiverse(currentPage, character, gender.value, species.value, lifeStatus.value);
+    // Smooth navigation transition to top of site
     window.scroll({
       top: 0,
       left: 0,
@@ -90,11 +101,15 @@ nextPage.addEventListener('click', function () {
   }
 });
 
+// Asynchronous function using query inputs to connect to API and return results
 async function searchMultiverse(currentPage, charName, genderType, speciesType, lifeStatus) {
   const response = await fetch(`https://rickandmortyapi.com/api/character?page=${currentPage}&name=${charName}&gender=${genderType}&species=${speciesType}&status=${lifeStatus}`);
   const json = await response.json();
 
+  // Call function to dynamically generate results with json data from API
   displayResults(json);
+
+  // If statement to check error handling for page navigation display
   if (json.error) {
     displayPageNav(currentPage);
   } else {
@@ -104,10 +119,13 @@ async function searchMultiverse(currentPage, charName, genderType, speciesType, 
   }
 }
 
+// Function to dynamically generate page results
 function displayResults(data) {
+  // Clear previous results for new character 'cards'
   noResultsDiv.innerHTML = "";
   resultsDiv.innerHTML = "";
 
+  // If no results found, dynamically generate alert to user
   if (data.error) {
     let alertNone = document.createElement('div');
     alertNone.innerHTML = `
@@ -124,11 +142,10 @@ function displayResults(data) {
     </div>
   </div>
     `;
-
-    noResultsDiv.append(alertNone);
+    noResultsDiv.append(alertNone);  // Output alert to the page
 
   } else {
-
+    // For each result, dynamically generate a character 'card'
     data.results.forEach(characterAvatar => {
       let newCard = document.createElement('div');
       newCard.innerHTML = `
@@ -178,11 +195,11 @@ function displayResults(data) {
     </div>
       `;
 
-      newCard.className = "d-inline-block trading-card";
-      resultsDiv.append(newCard);
+      newCard.className = "d-inline-block trading-card";  // Assign class styles to each 'card'
+      resultsDiv.append(newCard);  // Output each 'card' to page
     });
 
-    // Card flip click flip function - for loop creates array for all querySelectors' generated
+    // Card click flip functionality - for loop creates array for all querySelectors' generated
     var cards = document.querySelectorAll('.flip-card-inner');
     for (let i = 0; i < cards.length; i++) {
       cards[i].addEventListener('click', function () {
@@ -192,12 +209,14 @@ function displayResults(data) {
   }
 }
 
+// Function to obtain the total amount of characters to insert on cards
 async function getTotalCharacters() {
   const response = await fetch(`https://rickandmortyapi.com/api/character`);
   const json = await response.json();
   totalCharacters = json.info.count;
 }
 
+// Function displays / hides pagination buttons & toggles disabled states
 function displayPageNav(pages) {
   if (pages > 1) {
     pageNav.style.display = "block";
@@ -217,9 +236,11 @@ function displayPageNav(pages) {
   }
 }
 
+// Function to clear dynamic loaded page content upon user starting new search
 function resetQueryString() {
   resultsDiv.innerHTML = "";
   noResultsDiv.innerHTML = "";
+  localStorage.setItem("charName", "");
   gender.value = "";
   species.value = "";
   lifeStatus.value = "";

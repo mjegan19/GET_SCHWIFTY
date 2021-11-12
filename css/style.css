@@ -4,7 +4,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@1,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
 
-
 body {
   margin: 0;
   padding: 0;
@@ -48,9 +47,16 @@ header h3 {
   z-index: 1;
 }
 
-header p {
-  color: #B2E737;
-  /* font-size:  */
+header .site-info {
+  margin: 0 auto 1rem;
+  padding: 0.8rem;
+  width: 620px;
+  background-color: rgb(51, 51, 51, 0.6);
+  border-radius: 5px;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.8rem;
+  text-align: center;
+  color: #C7EE6D;
 }
 
 .search-form {
@@ -224,6 +230,25 @@ header p {
   margin: 1.4rem 0.7rem;
 }
 
+footer {
+  margin-top: 4rem;
+  padding: 0.5rem 0;
+  width: 100%;
+  background-color: rgb(51, 51, 51, 0.6);
+  color: #C7EE6D;
+  font-family: 'Fira Code', monospace;
+  text-align: center;
+}
+
+footer a {
+  text-decoration: none;
+  color: #FF00FF;
+}
+
+footer a:hover {
+  opacity: 0.9;
+}
+
 
 /* Responsive screen sizing */
 @media screen and (max-width: 1000px) {
@@ -257,7 +282,7 @@ header p {
     top: 85px;
   }
 
-  .search-form {
+  header .site-info, .search-form {
     width: 420px;
   }
 }
