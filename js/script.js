@@ -1,3 +1,7 @@
+// RickTastic MortyVerse Version 1.0
+// Copyright 2021
+// Michael Egan
+
 // Find search input by ID & store query in variable
 const searchCharacter = document.getElementById('searchCharacter');
 // Find search button by ID, store in variable for 'eventlistner'
