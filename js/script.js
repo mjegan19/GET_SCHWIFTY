@@ -106,8 +106,10 @@ nextPage.addEventListener('click', function () {
 });
 
 // Asynchronous function using query inputs to connect to API and return results
+// Passes in parameters from the search query inputs
 async function searchMultiverse(currentPage, charName, genderType, speciesType, lifeStatus) {
   const response = await fetch(`https://rickandmortyapi.com/api/character?page=${currentPage}&name=${charName}&gender=${genderType}&species=${speciesType}&status=${lifeStatus}`);
+  // Retrieves JSON data and stores in variable
   const json = await response.json();
 
   // Call function to dynamically generate results with json data from API
@@ -149,7 +151,7 @@ function displayResults(data) {
     noResultsDiv.append(alertNone);  // Output alert to the page
 
   } else {
-    // For each result, dynamically generate a character 'card'
+    // For each result in 'data', dynamically generate a character 'card'
     data.results.forEach(characterAvatar => {
       let newCard = document.createElement('div');
       newCard.innerHTML = `
