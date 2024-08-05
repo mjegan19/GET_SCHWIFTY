@@ -34,6 +34,12 @@ let totalCharacters = null;
 let totalPages = null;
 let currentPage = 1;
 
+// Current Date Data
+const yearSpan = document.getElementById('current-year');
+const currentDate = new Date();
+const currentYear = currentDate.getFullYear();
+yearSpan.append(currentYear);
+
 // Listen for page load, retrieve last user search from storage.
 window.addEventListener("load", function () {
   character = localStorage.getItem('charName');
