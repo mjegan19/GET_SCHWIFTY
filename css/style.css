@@ -5,17 +5,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
 
 /* Header & Page Styling */
-body {
+html, body {
   margin: 0;
-  padding: 0 20px;
+}
 
+#background {
   background-image: url('../img/3d-space-background-min.jpg');
   background-color: #333;
   height: 100dvh;
+  width: 100dvw;
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+#contents {
+  position: absolute;
+  z-index: 1;
+  padding: 0 20px;
+  height: 100dvh;
+  width: 100dvw;
+  overflow-y: scroll;
 }
 
 header {
