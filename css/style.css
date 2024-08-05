@@ -9,6 +9,10 @@ body {
   margin: 0;
   padding: 0 20px;
   background: url('../img/3d-space-background-min.jpg') fixed no-repeat center/cover #333 !important;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
   height: 100svh;
 }
 
